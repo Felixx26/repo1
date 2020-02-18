@@ -12,12 +12,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        int i,u,q;
+        int i,u,q,j,k;
         i = 10;
         u = 10;
-        q = i + u;
-
-
+        q = 10;
+        j = 10;
+        k = 10;
 
     }
 }
