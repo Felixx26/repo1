@@ -9,6 +9,7 @@ import android.widget.Button;
 
 public class Inicio_Activity extends AppCompatActivity {
 
+    //Declaración
     Button btnJugar;
 
     @Override
@@ -18,6 +19,7 @@ public class Inicio_Activity extends AppCompatActivity {
 
         btnJugar = (Button)findViewById(R.id.button);
 
+        //Mentodo del botón Jugar
         btnJugar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

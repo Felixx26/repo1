@@ -62,18 +62,24 @@ public class MainActivity extends AppCompatActivity {
                 List<Categorias> categoriasList = response.body();
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
                 for (final Categorias categoria: categoriasList){
-                    Button button = new Button(getApplicationContext());
+                    final Button button = new Button(getApplicationContext());
                     button.setText(categoria.getNombre());
-                    button.setTextSize(24);
-                    button.setHeight(70);
+                    button.setBackgroundResource(R.drawable.botones_menu);
+                    button.setTextSize(50);
+                    button.setTextColor(getApplication().getResources().getColor(R.color.blanco));
+                    button.setHeight(170);
                     button.setLayoutParams(lp);
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Toast.makeText(getApplicationContext(),"Categoria: " + categoria.getNombre(), Toast.LENGTH_SHORT).show();
+                            //button.setImageResource(R.drawable.icono);
+                            //button.setPadding(10,20,10,20);
+                            //button.setWidth(1);
                         }
                     });
                     linearLayout.addView(button);
+
                     /*
                     String content = "";
                     content+= "id: " + categoria.get_id() + "\n";
