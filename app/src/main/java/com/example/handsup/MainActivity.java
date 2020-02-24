@@ -2,6 +2,7 @@ package com.example.handsup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
 
+        //layout para indicar el contenedor para los botones
         linearLayout = findViewById(R.id.contenedor);
         getCategorias();
 
@@ -43,26 +45,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getCategorias() {
+        //Obtener las categorías utilizando la api creada
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api-rest-palabras.herokuapp.com/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         categoriasApi categoriasApi = retrofit.create(categoriasApi.class);
-
+        //utilizando la interfaz de categoria api para obtener un molde de lista de las categorias
         Call<List<Categorias>> call = categoriasApi.getCategorias();
-
+        //llamando a las categorias de la api
         call.enqueue(new Callback<List<Categorias>>() {
             @Override
             public void onResponse(Call<List<Categorias>> call, Response<List<Categorias>> response) {
+                //Si la respuesta no es sastisfactoria
                 if (!response.isSuccessful()) {
                     return;
                 }
+
                 Toast.makeText(getApplicationContext(),"Categorias", Toast.LENGTH_SHORT).show();
+                //agregando a un List la respuestra traida por la api
                 List<Categorias> categoriasList = response.body();
+                //estableciendo los layoutParams para agregar a los botones y as[i esten relacionados con el layout actual
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
                 for (final Categorias categoria: categoriasList){
-                    final Button button = new Button(getApplicationContext());
+                    Button button = new Button(getApplicationContext());
                     button.setText(categoria.getNombre());
                     button.setBackgroundResource(R.drawable.botones_menu);
                     button.setTextSize(50);
@@ -76,16 +82,11 @@ public class MainActivity extends AppCompatActivity {
                             //button.setImageResource(R.drawable.icono);
                             //button.setPadding(10,20,10,20);
                             //button.setWidth(1);
+                            Intent intent = new Intent(MainActivity.this, PlayActivity.class);
+                            startActivity(intent);
                         }
                     });
                     linearLayout.addView(button);
-
-                    /*
-                    String content = "";
-                    content+= "id: " + categoria.get_id() + "\n";
-                    content+= "nombre: " + categoria.getNombre() + "\n";
-                    mJsonTextView.append(content);
-                     */
                 }
 
             }
