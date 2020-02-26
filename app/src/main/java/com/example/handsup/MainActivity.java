@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                             //button.setPadding(10,20,10,20);
                             //button.setWidth(1);
                             Intent intent = new Intent(MainActivity.this, PlayActivity.class);
+                            intent.putExtra("categoria", categoria.getNombre());
                             startActivity(intent);
                         }
                     });
