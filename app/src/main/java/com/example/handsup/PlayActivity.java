@@ -7,6 +7,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.example.handsup.model.Palabras;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
@@ -33,10 +35,12 @@ public class PlayActivity extends AppCompatActivity {
     SensorManager sensorManager;
     Sensor sensor;
     SensorEventListener sensorEventListener;
+    CountDownTimer countDownTimer;
     TextView tv1;
-    int whip = 0;
+    TextView tvTime;
     List<Palabras> palabrasList;
     Map<String, Boolean> score = new HashMap<>();
+    int aux = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,7 @@ public class PlayActivity extends AppCompatActivity {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         tv1 = findViewById(R.id.txtPalabra);
+        tvTime = findViewById(R.id.txtTime);
         if (sensor == null) {
             finish();
         }
@@ -66,7 +71,30 @@ public class PlayActivity extends AppCompatActivity {
                     return;
                 }
                 palabrasList = response.body();
-                activateSensor();
+                CountDownTimer countDownTimer1 = new CountDownTimer(5000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        tv1.setText(String.format(Locale.getDefault(), "Pon tu dispositivo en la frente \n%d", millisUntilFinished / 1000L));
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        countDownTimer = new CountDownTimer(8000, 1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                tvTime.setText(String.format(Locale.getDefault(), "%d", millisUntilFinished / 1000));
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                menu();
+                                tvTime.setText("");
+                                this.cancel();
+                            }
+                        }.start();
+                        activateSensor();
+                    }
+                }.start();
             }
 
             @Override
@@ -78,39 +106,36 @@ public class PlayActivity extends AppCompatActivity {
 
     private void activateSensor() {
         if (palabrasList != null) {
-
             //Randomizar el listado de palabras
             Collections.shuffle(palabrasList, new Random());
             tv1.setText(palabrasList.get(0).getPalabra());
             //Evento de sensor
             sensorEventListener = new SensorEventListener() {
                 int i = 0;
-                int aux = 0;
 
                 @Override
                 public void onSensorChanged(SensorEvent event) {
                     float z = event.values[2];
                     //Evento que se desata al mover el celular hacia abajo
-                    if (z <= -5 && aux == 0) {
+                    if (z < -5 && aux == 0) {
                         aux++;
                         score.put(palabrasList.get(i).getPalabra(), true);
                         correctSound();
                     }
                     //Evento que se desata al mover el celular hacia arriba
-                    if (z >= 5 && aux == 0) {
+                    if (z > 5 && aux == 0) {
                         aux++;
                         score.put(palabrasList.get(i).getPalabra(), false);
                         incorrectSound();
                     }
                     //Reinicio de variables
-                    if (aux == 1 && z < 5 && z > -5) {
+                    if (aux == 1 && z < 2 && z > -2) {
                         i++;
                         if (i < palabrasList.size()) {
                             tv1.setText(palabrasList.get(i).getPalabra());
                             aux = 0;
                         } else {
-                            menu();
-                            aux = -1;
+                            countDownTimer.onFinish();
                         }
                     }
                 }
@@ -143,12 +168,15 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     private void menu() {
+        aux = -1;
         String text = "";
         for (Map.Entry<String, Boolean> score1 : score.entrySet()) {
             text += score1.getKey() + " " + score1.getValue();
         }
         tv1.setText(text);
     }
+
+
 
     @Override
     protected void onPause() {
