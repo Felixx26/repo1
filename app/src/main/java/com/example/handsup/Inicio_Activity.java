@@ -29,6 +29,8 @@ public class Inicio_Activity extends AppCompatActivity {
         mp.setLooping(true);
 
 
+
+
         //Mentodo del botón Jugar
         btnJugar.setOnClickListener(new View.OnClickListener() {
             @Override
