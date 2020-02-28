@@ -10,7 +10,7 @@
         android:id="@+id/txtPalabra"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/ladrillosn1"
+        android:background="@color/negrogris"
         android:gravity="center"
         android:text="Póntelo en la frente\n"
         android:textAlignment="center"

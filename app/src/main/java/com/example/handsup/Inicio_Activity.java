@@ -21,9 +21,7 @@ public class Inicio_Activity extends AppCompatActivity {
 
         btnJugar = (Button)findViewById(R.id.button);
 
-        MediaPlayer mp = MediaPlayer.create(Inicio_Activity.this, R.raw.musica);
-        mp.start();
-        mp.setLooping(true);
+
 
 
 

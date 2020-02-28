@@ -5,6 +5,8 @@
     <color name="colorAccent">#FFEB3B</color>
     <color name="blanco">#FFFFFF</color>
     <color name="color1">#F4511E</color>
-    <color name="negrogris">#FF1F1F1F</color>
+    <color name="negrogris">#1F1F1F</color>
     <color name="naranja">#FF9800</color>
+    <color name="gris">#FF5C5A5A</color>
+
 </resources>

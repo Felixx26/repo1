@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                Toast.makeText(getApplicationContext(),"Categorias", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),"Categorias", Toast.LENGTH_SHORT).show();
                 //agregando a un List la respuestra traida por la api
                 List<Categorias> categoriasList = response.body();
                 //estableciendo los layoutParams para agregar a los botones y así esten relacionados con el layout actual
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             MediaPlayer sb = MediaPlayer.create(MainActivity.this, R.raw.sonidoboton);
                             sb.start();
-                            Toast.makeText(getApplicationContext(),"Categoria: " + categoria.getNombre(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(),"Categoria: " + categoria.getNombre(), Toast.LENGTH_SHORT).show();
                             //button.setImageResource(R.drawable.icono);
                             //button.setPadding(10,20,10,20);
                             //button.setWidth(1);

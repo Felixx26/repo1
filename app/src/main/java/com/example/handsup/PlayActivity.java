@@ -76,7 +76,7 @@ public class PlayActivity extends AppCompatActivity {
                     return;
                 }
                 palabrasList = response.body();
-                CountDownTimer countDownTimer1 = new CountDownTimer(6000, 1000) {
+                CountDownTimer countDownTimer1 = new CountDownTimer(5000, 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
                         tv1.setText(String.format(Locale.getDefault(), "Póntelo en la frente \n%d", millisUntilFinished / 1000L));
@@ -84,7 +84,7 @@ public class PlayActivity extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-                        countDownTimer = new CountDownTimer(8000, 1000) {
+                        countDownTimer = new CountDownTimer(60000, 1000) {
                             @Override
                             public void onTick(long millisUntilFinished) {
                                 tvTime.setText(String.format(Locale.getDefault(), "%d", millisUntilFinished / 1000));

@@ -25,6 +25,9 @@ public class Splash_Screen_Activity extends AppCompatActivity {
                 Intent intent=new Intent(Splash_Screen_Activity.this,Inicio_Activity.class);
                 startActivity(intent);
                 finish();
+                MediaPlayer mp = MediaPlayer.create(Splash_Screen_Activity.this, R.raw.musica);
+                mp.start();
+                mp.setLooping(true);
 
 
             }
