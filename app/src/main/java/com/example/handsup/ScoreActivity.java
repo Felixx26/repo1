@@ -3,6 +3,7 @@ package com.example.handsup;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,9 +24,13 @@ public class ScoreActivity extends AppCompatActivity {
         tvAcertadas =(TextView)findViewById(R.id.tvAcertadas);
         tvFallidas = (TextView)findViewById(R.id.tvFallidas);
 
+        //Volver a Pantalla de Inicio
+
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MediaPlayer sb = MediaPlayer.create(ScoreActivity.this, R.raw.sonidoboton);
+                sb.start();
                 Intent intent=new Intent(ScoreActivity.this,Inicio_Activity.class);
                 startActivity(intent);
                 finish();

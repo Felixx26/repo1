@@ -149,6 +149,8 @@ public class PlayActivity extends AppCompatActivity {
                             aux = 0;
                         } else {
                             countDownTimer.onFinish();
+
+                            // Pasar variables al Score
                             Intent intent=new Intent(PlayActivity.this,ScoreActivity.class);
                             String correc = Integer.toString(correctas);
                             String incorrec= Integer.toString(incorrectas);

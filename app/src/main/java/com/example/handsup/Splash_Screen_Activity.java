@@ -3,10 +3,14 @@ package com.example.handsup;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 
 public class Splash_Screen_Activity extends AppCompatActivity {
+
+   int sonido_de_reproduccion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +25,7 @@ public class Splash_Screen_Activity extends AppCompatActivity {
                 Intent intent=new Intent(Splash_Screen_Activity.this,Inicio_Activity.class);
                 startActivity(intent);
                 finish();
+
 
             }
         },4000);
