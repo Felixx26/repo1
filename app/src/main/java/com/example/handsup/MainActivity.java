@@ -65,12 +65,12 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Categorias", Toast.LENGTH_SHORT).show();
                 //agregando a un List la respuestra traida por la api
                 List<Categorias> categoriasList = response.body();
-                //estableciendo los layoutParams para agregar a los botones y as[i esten relacionados con el layout actual
+                //estableciendo los layoutParams para agregar a los botones y así esten relacionados con el layout actual
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
                 for (final Categorias categoria: categoriasList){
                     Button button = new Button(getApplicationContext());
                     button.setText(categoria.getNombre());
-                    button.setBackgroundResource(R.drawable.botones_menu);
+                    button.setBackgroundResource(R.drawable.botones3);
                     button.setTextSize(50);
                     button.setTextColor(getApplication().getResources().getColor(R.color.blanco));
                     button.setHeight(170);
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                             //button.setPadding(10,20,10,20);
                             //button.setWidth(1);
                             Intent intent = new Intent(MainActivity.this, PlayActivity.class);
-                            intent.putExtra("categoria", categoria.getNombre());
+                            intent.putExtra("categoria",categoria.getNombre());
                             startActivity(intent);
                         }
                     });

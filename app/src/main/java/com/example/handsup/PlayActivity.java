@@ -1,5 +1,6 @@
 package com.example.handsup;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -41,6 +42,8 @@ public class PlayActivity extends AppCompatActivity {
     List<Palabras> palabrasList;
     Map<String, Boolean> score = new HashMap<>();
     int aux = 0;
+    int correctas = 0;
+    int incorrectas = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +77,7 @@ public class PlayActivity extends AppCompatActivity {
                 CountDownTimer countDownTimer1 = new CountDownTimer(5000, 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
-                        tv1.setText(String.format(Locale.getDefault(), "Pon tu dispositivo en la frente \n%d", millisUntilFinished / 1000L));
+                        tv1.setText(String.format(Locale.getDefault(), "Póntelo en la frente \n%d", millisUntilFinished / 1000L));
                     }
 
                     @Override
@@ -83,6 +86,7 @@ public class PlayActivity extends AppCompatActivity {
                             @Override
                             public void onTick(long millisUntilFinished) {
                                 tvTime.setText(String.format(Locale.getDefault(), "%d", millisUntilFinished / 1000));
+
                             }
 
                             @Override
@@ -119,14 +123,23 @@ public class PlayActivity extends AppCompatActivity {
                     //Evento que se desata al mover el celular hacia abajo
                     if (z < -5 && aux == 0) {
                         aux++;
+                        correctas++;
                         score.put(palabrasList.get(i).getPalabra(), true);
                         correctSound();
                     }
                     //Evento que se desata al mover el celular hacia arriba
                     if (z > 5 && aux == 0) {
                         aux++;
+                        incorrectas++;
                         score.put(palabrasList.get(i).getPalabra(), false);
                         incorrectSound();
+
+                        //Intent i = new Intent(PlayActivity.this, ScoreActivity.class);
+                        //i.putExtra("Acertadas", aux);
+
+
+
+
                     }
                     //Reinicio de variables
                     if (aux == 1 && z < 2 && z > -2) {
@@ -136,6 +149,17 @@ public class PlayActivity extends AppCompatActivity {
                             aux = 0;
                         } else {
                             countDownTimer.onFinish();
+                            Intent intent=new Intent(PlayActivity.this,ScoreActivity.class);
+                            String correc = Integer.toString(correctas);
+                            String incorrec= Integer.toString(incorrectas);
+                            intent.putExtra("Acertadas", correc);
+                            intent.putExtra("Fallidas", incorrec);
+                            startActivity(intent);
+                            finish();
+                            Toast.makeText(getApplicationContext(),"SE TERMINÓ EL TIEMPO", Toast.LENGTH_SHORT).show();
+
+
+
                         }
                     }
                 }
