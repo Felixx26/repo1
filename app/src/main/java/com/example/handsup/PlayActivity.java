@@ -2,6 +2,7 @@ package com.example.handsup;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Path;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.handsup.interfaz.palabrasApi;
 import com.example.handsup.model.Palabras;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -74,7 +76,7 @@ public class PlayActivity extends AppCompatActivity {
                     return;
                 }
                 palabrasList = response.body();
-                CountDownTimer countDownTimer1 = new CountDownTimer(5000, 1000) {
+                CountDownTimer countDownTimer1 = new CountDownTimer(6000, 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
                         tv1.setText(String.format(Locale.getDefault(), "Póntelo en la frente \n%d", millisUntilFinished / 1000L));
@@ -149,17 +151,6 @@ public class PlayActivity extends AppCompatActivity {
                             aux = 0;
                         } else {
                             countDownTimer.onFinish();
-                            Intent intent=new Intent(PlayActivity.this,ScoreActivity.class);
-                            String correc = Integer.toString(correctas);
-                            String incorrec= Integer.toString(incorrectas);
-                            intent.putExtra("Acertadas", correc);
-                            intent.putExtra("Fallidas", incorrec);
-                            startActivity(intent);
-                            finish();
-                            Toast.makeText(getApplicationContext(),"SE TERMINÓ EL TIEMPO", Toast.LENGTH_SHORT).show();
-
-
-
                         }
                     }
                 }
@@ -190,14 +181,31 @@ public class PlayActivity extends AppCompatActivity {
     private void stop() {
         sensorManager.unregisterListener(sensorEventListener);
     }
-
     private void menu() {
         aux = -1;
-        String text = "";
+        String[] palabrasAcertadas = new String[100];
+        String[] palabrasFallidas = new String[100];
+
+         int i =0, j = 0;
         for (Map.Entry<String, Boolean> score1 : score.entrySet()) {
-            text += score1.getKey() + " " + score1.getValue();
+            if (score1.getValue()){
+                palabrasAcertadas[i] = (score1.getKey());
+                i++;
+            }else {
+                palabrasFallidas[j] = (score1.getKey());
+                j++;
+            }
         }
-        tv1.setText(text);
+        Intent intent=new Intent(PlayActivity.this,ScoreActivity.class);
+        String correc = Integer.toString(correctas);
+        String incorrec= Integer.toString(incorrectas);
+        intent.putExtra("Acertadas", correc);
+        intent.putExtra("Fallidas", incorrec);
+        intent.putExtra("palabrasAcertadas", palabrasAcertadas);
+        intent.putExtra("palabrasFallidas", palabrasFallidas);
+        startActivity(intent);
+        finish();
+        Toast.makeText(getApplicationContext(),"SE TERMINÓ EL TIEMPO", Toast.LENGTH_SHORT).show();
     }
 
 
