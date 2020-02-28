@@ -14,9 +14,6 @@ public class Inicio_Activity extends AppCompatActivity {
     //Declaración
     Button btnJugar;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
