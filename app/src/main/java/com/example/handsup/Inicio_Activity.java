@@ -3,14 +3,19 @@ package com.example.handsup;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class Inicio_Activity extends AppCompatActivity {
 
     //Declaración
     Button btnJugar;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,10 +24,17 @@ public class Inicio_Activity extends AppCompatActivity {
 
         btnJugar = (Button)findViewById(R.id.button);
 
+        MediaPlayer mp = MediaPlayer.create(Inicio_Activity.this, R.raw.musica);
+        mp.start();
+        mp.setLooping(true);
+
+
         //Mentodo del botón Jugar
         btnJugar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MediaPlayer sb = MediaPlayer.create(Inicio_Activity.this, R.raw.sonidoboton);
+                sb.start();
                 Intent intent = new Intent(Inicio_Activity.this, MainActivity.class);
                 startActivity(intent);
             }

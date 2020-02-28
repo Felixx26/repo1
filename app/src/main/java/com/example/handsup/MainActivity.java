@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -78,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            MediaPlayer sb = MediaPlayer.create(MainActivity.this, R.raw.sonidoboton);
+                            sb.start();
                             Toast.makeText(getApplicationContext(),"Categoria: " + categoria.getNombre(), Toast.LENGTH_SHORT).show();
                             //button.setImageResource(R.drawable.icono);
                             //button.setPadding(10,20,10,20);
@@ -85,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this, PlayActivity.class);
                             intent.putExtra("categoria",categoria.getNombre());
                             startActivity(intent);
+                            MediaPlayer pr = MediaPlayer.create(MainActivity.this, R.raw.preparense2);
+                            pr.start();
                         }
                     });
                     linearLayout.addView(button);
